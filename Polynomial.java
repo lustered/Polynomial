@@ -118,8 +118,33 @@ public class Polynomial
     */
    public Polynomial polyAdd(Polynomial p)
    {      
-       // TO DO: write body of this method
-       // temporary return so class skeleton will compile and run
+      if(head == null) return null ;
+
+       // TODO:
+       // Notes: 
+       // .Create a polynomial 
+       // REMEMBER to assume that terms are ordered by exponent: x^2 + 5x^2 + 3x^3 ...
+       // Therefore we can just check until the exponent isn't the same then:
+       //  
+       // .and pivot at the new one
+       Node<Term> tmp = head ;
+       Node<Term> other = p.head ;
+
+       Polynomial ret = new Polynomial();
+       // ret.head = new Node<Term>(new Term(0, 10));
+
+       while(tmp != null)
+       {
+          System.out.println("This polynomial: " + tmp.info.getExponent());
+          tmp = tmp.next ;
+
+          while(other != null)
+          {
+             System.out.println("Param polynomial: " + other.info.getExponent());
+             other = other.next ;
+          }
+       }
+
        return null ;
    }
    
