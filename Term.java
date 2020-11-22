@@ -36,7 +36,7 @@ public class Term
         // 2.a=1
         // 3.b=1
         // 4.b=0
-        if((getCoefficient() ^ getExponent()) == 0)
+        if(getCoefficient() == 1 && getExponent() == 1)
             return "x" ;
         else if(getCoefficient() == 1)
             return String.format("x^%s", getExponent()) ;
