@@ -22,7 +22,16 @@ public class Polynomial
     */
    public Polynomial(Polynomial p) 
    {
-      // TO DO: write body of this method
+     Node<Term> node = p.head ;
+     this.head = new Node<>(p.head.info) ;
+     Node adder = this.head ;
+     node = node.next ;
+
+     while(node.next != null)
+     {
+        adder.next = new Node(node.info) ;
+        node = node.next ;
+     }
    }
    
    /**
@@ -33,7 +42,26 @@ public class Polynomial
     */
    public void addTerm(int coeff, int expo)
    {
-      // TO DO: write body of this method 
+      // Create a node with the new term to add.
+      Node<Term> term = new Node<Term>(new Term(coeff, expo));
+
+      if(head == null)
+      {
+         System.out.println("Added node to head");
+         head = term;
+      }
+      else
+      {
+         Node<Term> trav = head ;
+         term.next = null ;
+
+         while(trav.next != null)
+            trav = trav.next;
+
+        System.out.println("New Polynomial = " + trav.info);
+        trav.next = term;
+      }
+
    }      
   
    /**
@@ -42,9 +70,26 @@ public class Polynomial
     */
    public String toString()
    {
-       // TO DO: write body of this method
-       // temporary return so class skeleton will compile and run
-       return "Hi Mom!" ;
+      String ret = "";
+
+      if(head == null)
+         return "Empty polynomial";
+
+      // Pointing the head node to the traversing var.
+      Node<Term> trav = this.head;
+
+      // Add the term at the head to the return
+      ret += trav.info;
+      trav = trav.next;
+
+      // while(trav != null)
+      while(trav != null)
+      {
+          ret += " + " + trav.info;
+          trav = trav.next;
+      }
+
+      return ret ;
    }
    
    // collect terms of a Polynomial object. I.e. replace all terms having the 
