@@ -42,27 +42,57 @@ public class Polynomial
     */
    public void addTerm(int coeff, int expo)
    {
+      // TODO:Thought question: what happens if the exponent of the new term is less than the exponent of the first term on the list?
+
       // Create a node with the new term to add.
       Node<Term> term = new Node<Term>(new Term(coeff, expo));
+      // Point to head to traverse the linked list.
+      Node<Term> leader = head ;
 
+      // Check for empty list
       if(head == null)
       {
-         System.out.println("Added node to head");
+         // Insert term at the head node.
          head = term;
+         // Break out.
+         return ;
       }
-      else
+
+      // Check for new head in case the new term has a smaller exponent than current head. 
+      if(head.info.getExponent() > expo)
       {
-         Node<Term> trav = head ;
-         term.next = null ;
-
-         while(trav.next != null)
-            trav = trav.next;
-
-        System.out.println("New Polynomial = " + trav.info);
-        trav.next = term;
+         // Point the new term to the head since head will be the second node.
+         term.next = head;
+         // Set the new term as the new head.
+         this.head = term;
+         // Break out.
+         return;
       }
 
-   }      
+      // Check for in-between 
+      while(leader.next != null)
+      {
+         // If the exponent of the next node is >= new term's exponent
+         if(leader.next.info.getExponent() >= expo)
+         {
+            // Point the new term to that node.
+            term.next = leader.next;
+            // Inser the node
+            leader.next = term;
+            // Break out.
+            break;
+         }
+         else
+         {
+            // Otherwise, go to the next node.
+            leader = leader.next;
+         }
+      }
+
+      // Insert the new term at the end of the list.
+      leader.next = term;
+
+   }// End of the addTerm method      
   
    /**
     * Returns a polynomial as a String in this form: x + 3x^2 + 7x^3 + x^5
@@ -96,7 +126,30 @@ public class Polynomial
    // same exponent with a single term which is their sum
    private void collectTerms()
    {
-       // TO DO: write body of this method
+
+      if(head == null) 
+         return;
+
+      // Point temp node to head to traverse linked list.
+      Node<Term> t = head;
+      while(t.next != null)
+      {
+         if(t.info.getExponent() == t.next.info.getExponent())
+         {
+            int newCoeff = t.info.getCoefficient() + t.next.info.getCoefficient();
+
+            Node<Term> newTerm = new Node<Term>(new Term(newCoeff, t.info.getExponent()));
+
+            if(t.next.next != null)
+            {
+
+               // TODO
+            }
+
+
+         }
+
+      }
    }
    
    /**
@@ -118,7 +171,7 @@ public class Polynomial
     */
    public Polynomial polyAdd(Polynomial p)
    {      
-      if(head == null) return null ;
+      if(this.head == null) return null ;
 
        // TODO:
        // Notes: 
@@ -131,7 +184,7 @@ public class Polynomial
        Node<Term> other = p.head ;
 
        Polynomial ret = new Polynomial();
-       // ret.head = new Node<Term>(new Term(0, 10));
+       // ret.head = new Node<Term>(new Term(5, 10));
 
        while(tmp != null)
        {
@@ -145,7 +198,7 @@ public class Polynomial
           }
        }
 
-       return null ;
+       return ret ;
    }
    
    // Node class definition - DO NOT MODIFY!

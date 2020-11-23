@@ -1,3 +1,4 @@
+
 public class testing
 {
    public static void main(String[] args)
@@ -13,25 +14,46 @@ public class testing
       // System.out.println("\np1 = " + p1 + ", np2 = " + p2 + "\tp1 * p2 is " + 
       //                     nullTest);
       
+
+      p0.addTerm(1, 2);
+      p0.addTerm(5, 0);
+      p0.addTerm(4, 1);
+
+      
       p1.addTerm(5, 2);
       p1.addTerm(4, 5);
       p1.addTerm(3, 3);
       p1.addTerm(1, 2);
       p1.addTerm(5, 6);
 
+
       p2.addTerm(3, 8);
       p2.addTerm(2, 5);
       p2.addTerm(1, 2);
 
-      p0.addTerm(1, 2);
-      p0.addTerm(5, 0);
-      p0.addTerm(4, 1);
       
+      System.out.println("\np0.Values:\n");
+      System.out.println("1, 2");
+      System.out.println("5, 0");
+      System.out.println("4, 1");
+      System.out.println("\np1.Values:\n");
+      System.out.println("5, 2");
+      System.out.println("4, 5");
+      System.out.println("3, 3");
+      System.out.println("1, 2");
+      System.out.println("5, 6");
+      System.out.println("\np2.Values:\n");
+      System.out.println("3, 8");
+      System.out.println("2, 5");
+      System.out.println("1, 2");
+
       System.out.println("\np0 = " + p0);
       System.out.println("\np1 = " + p1);
       System.out.println("\np2 = " + p2);
 
-      Polynomial p4 = p1.polyAdd(p2);
+      System.out.println(" " + p0.collectTerms());
+      // Polynomial p4 = p1.polyAdd(p2);
+      // System.out.println("p1+p2 = " + p4);
       
       // Polynomial p3 = p1.polyAdd(p2);
       // System.out.println("\np1 = " + p1 + "\np2 = " + p2 + "\np1+p2 = " + p3);
