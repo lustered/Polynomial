@@ -18,6 +18,8 @@ public class testing
       p0.addTerm(1, 2);
       p0.addTerm(5, 0);
       p0.addTerm(4, 1);
+      p0.addTerm(3, 0);
+      p0.addTerm(5, 1);
 
       
       p1.addTerm(5, 2);
@@ -25,33 +27,32 @@ public class testing
       p1.addTerm(3, 3);
       p1.addTerm(1, 2);
       p1.addTerm(5, 6);
+      p1.addTerm(4, 2);
+      p1.addTerm(4, 3);
+      p1.addTerm(4, 6);
 
 
       p2.addTerm(3, 8);
       p2.addTerm(2, 5);
       p2.addTerm(1, 2);
+      p2.addTerm(10, 2);
+      p2.addTerm(4, 8);
 
-      
-      System.out.println("\np0.Values:\n");
-      System.out.println("1, 2");
-      System.out.println("5, 0");
-      System.out.println("4, 1");
-      System.out.println("\np1.Values:\n");
-      System.out.println("5, 2");
-      System.out.println("4, 5");
-      System.out.println("3, 3");
-      System.out.println("1, 2");
-      System.out.println("5, 6");
-      System.out.println("\np2.Values:\n");
-      System.out.println("3, 8");
-      System.out.println("2, 5");
-      System.out.println("1, 2");
+      p0.collectTerms();
+      System.out.print("\np0 = " + p0);
 
-      System.out.println("\np0 = " + p0);
-      System.out.println("\np1 = " + p1);
-      System.out.println("\np2 = " + p2);
+      p1.collectTerms();
+      System.out.print("\np1 = " + p1);
 
-      System.out.println(" " + p0.collectTerms());
+      p2.collectTerms();
+      System.out.print("\np2 = " + p2);
+
+
+      // System.out.println("\np0 = " + p0);
+      // System.out.println("\np1 = " + p1);
+      // System.out.println("\np2 = " + p2);
+
+
       // Polynomial p4 = p1.polyAdd(p2);
       // System.out.println("p1+p2 = " + p4);
       

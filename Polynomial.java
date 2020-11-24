@@ -126,16 +126,11 @@ public class Polynomial
    // same exponent with a single term which is their sum
    public void collectTerms()
    {
-
-      Polynomial ret = new Polynomial();
-
       if(head == null) 
          return;
 
       // Point temp node to head to traverse linked list.
       Node<Term> t = head ;
-      Node<Term> rt = ret.head;
-      Node<Term> t2 = head;
 
       while(t.next != null)
       {
@@ -143,7 +138,7 @@ public class Polynomial
          {
             int newCoeff = t.info.getCoefficient() + t.next.info.getCoefficient();
 
-            Node<Term> combined = new Node<Term>(new Term(newCoeff, t.info.getExponent()));
+            Node<Term> combined = new Node<Term>(new Term(newCoeff, t.info.getExponent())) ;
 
             t.info = combined.info;
 
