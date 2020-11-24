@@ -124,30 +124,36 @@ public class Polynomial
    
    // collect terms of a Polynomial object. I.e. replace all terms having the 
    // same exponent with a single term which is their sum
-   private void collectTerms()
+   public void collectTerms()
    {
+
+      Polynomial ret = new Polynomial();
 
       if(head == null) 
          return;
 
       // Point temp node to head to traverse linked list.
-      Node<Term> t = head;
+      Node<Term> t = head ;
+      Node<Term> rt = ret.head;
+      Node<Term> t2 = head;
+
       while(t.next != null)
       {
          if(t.info.getExponent() == t.next.info.getExponent())
          {
             int newCoeff = t.info.getCoefficient() + t.next.info.getCoefficient();
 
-            Node<Term> newTerm = new Node<Term>(new Term(newCoeff, t.info.getExponent()));
+            Node<Term> combined = new Node<Term>(new Term(newCoeff, t.info.getExponent()));
 
-            if(t.next.next != null)
-            {
+            t.info = combined.info;
 
-               // TODO
-            }
-
-
+            // .If there is a term after the n2-node we combined: link the combined 
+            // node to the next valid node.
+            // .else, delete the node we combined.
+            t.next = (t.next.next != null) ? t.next.next : null ;
          }
+         else
+            t = t.next ;
 
       }
    }
