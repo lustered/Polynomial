@@ -15,78 +15,47 @@ public class testing
       //                     nullTest);
       
 
-      p0.addTerm(1, 2);
-      p0.addTerm(5, 0);
-      p0.addTerm(4, 1);
-      p0.addTerm(3, 0);
-      p0.addTerm(5, 1);
-
-      
       p1.addTerm(5, 2);
       p1.addTerm(4, 5);
       p1.addTerm(3, 3);
       p1.addTerm(1, 2);
       p1.addTerm(5, 6);
-      p1.addTerm(4, 2);
-      p1.addTerm(4, 3);
-      p1.addTerm(4, 6);
-
 
       p2.addTerm(3, 8);
       p2.addTerm(2, 5);
       p2.addTerm(1, 2);
-      p2.addTerm(10, 2);
-      p2.addTerm(4, 8);
 
-      p0.collectTerms();
+      p0.addTerm(1, 2);
+      p0.addTerm(5, 0);
+      p0.addTerm(4, 1);
+
       System.out.print("\np0 = " + p0);
-
-      p1.collectTerms();
       System.out.print("\np1 = " + p1);
+      System.out.println("\np2 = " + p2);
 
-      p2.collectTerms();
-      System.out.print("\np2 = " + p2);
-
-
-      // System.out.println("\np0 = " + p0);
-      // System.out.println("\np1 = " + p1);
-      // System.out.println("\np2 = " + p2);
-
-
-      // Polynomial p4 = p1.polyAdd(p2);
-      // System.out.println("p1+p2 = " + p4);
       
-      // Polynomial p3 = p1.polyAdd(p2);
-      // System.out.println("\np1 = " + p1 + "\np2 = " + p2 + "\np1+p2 = " + p3);
+      Polynomial p3 = p1.polyAdd(p2);
+      System.out.println("\np1 = " + p1 + "\np2 = " + p2 + "\np1+p2 = " + p3);
       
-      // Polynomial p4 = p1.polyMultiply(p2);
-      // System.out.println("\np1 = " + p1 + "\np2 = " + p2 + "\np1*p2 = " + p4);
+      Polynomial p4 = p1.polyMultiply(p2);
+      System.out.println("\np1 = " + p1 + "\np2 = " + p2 + "\np1*p2 = " + p4);
       
-      // Polynomial p5 = p2.polyMultiply(p2);
-      // System.out.println("\np2 = " + p2 + "\np2*p2 = " + p5);
+      Polynomial p5 = p2.polyMultiply(p2);
+      System.out.println("\np2 = " + p2 + "\np2*p2 = " + p5);
       
-      // Polynomial p6 = p0.polyMultiply(p2);
-      // System.out.println("\np0 = " + p0 + "\n" + "p2 = " + p2 + "\np0*p2 = " 
-      //                    + p6);
+      Polynomial p6 = p0.polyMultiply(p2);
+      System.out.println("\np0 = " + p0 + "\n" + "p2 = " + p2 + "\np0*p2 = " 
+                         + p6);
       
-      // Polynomial p7 = p0.polyAdd(p2);
-      // System.out.println("\np0 = " + p0 + "\n" + "p2 = " + p2 + "\np0+p2 = " 
-      //                    + p7);
+      Polynomial p7 = p0.polyAdd(p2);
+      System.out.println("\np0 = " + p0 + "\n" + "p2 = " + p2 + "\np0+p2 = " 
+                         + p7);
       
-      // p1 = p1.polyAdd(p2);
-      // System.out.println("\nAfter p1 = p1+p2  p1 = " + p1);
+      p1 = p1.polyAdd(p2);
+      System.out.println("\nAfter p1 = p1+p2  p1 = " + p1);
       
-      // p2 = p2.polyMultiply(p2);
-      // System.out.println("\nAfter p2 = p2*p2  p2 = " + p2);
-      
-      // Testing copy constructor
-      // Polynomial pCopy = new Polynomial(p1) ;
-      // System.out.println("\nAfter copy p1 =    " + p1); 
-      // System.out.println("After copy pCopy = " + pCopy);
-      // p1.addTerm(10, 4);
-      // System.out.println("\nAfter adding 10x^4 to p1, p1 = " + p1); 
-      // System.out.println("But pCopy is still             " + pCopy);
-      
+      p2 = p2.polyMultiply(p2);
+      System.out.println("\nAfter p2 = p2*p2  p2 = " + p2);
       
    }
 }

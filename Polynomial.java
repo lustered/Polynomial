@@ -22,15 +22,21 @@ public class Polynomial
     */
    public Polynomial(Polynomial p) 
    {
-     Node<Term> node = p.head ;
-     this.head = new Node<>(p.head.info) ;
-     Node adder = this.head ;
-     node = node.next ;
 
-     while(node.next != null)
+     // Add the head node for this polynomial.
+     this.head = new Node<>(p.head.info) ;
+     // Pointer to this polynomial.
+     Node t = head ;
+     // Pointer to param polynomial.
+     Node<Term> t2 = p.head ;
+
+     t2 = t2.next ;
+
+     while(t2 != null)
      {
-        adder.next = new Node(node.info) ;
-        node = node.next ;
+        t.next = new Node(t2.info) ;
+        t2 = t2.next ;
+        t = t.next;
      }
    }
    
@@ -42,8 +48,6 @@ public class Polynomial
     */
    public void addTerm(int coeff, int expo)
    {
-      // TODO:Thought question: what happens if the exponent of the new term is less than the exponent of the first term on the list?
-
       // Create a node with the new term to add.
       Node<Term> term = new Node<Term>(new Term(coeff, expo));
       // Point to head to traverse the linked list.
@@ -64,7 +68,7 @@ public class Polynomial
          // Point the new term to the head since head will be the second node.
          term.next = head;
          // Set the new term as the new head.
-         this.head = term;
+         head = term;
          // Break out.
          return;
       }
@@ -80,7 +84,8 @@ public class Polynomial
             // Inser the node
             leader.next = term;
             // Break out.
-            break;
+            // break;
+            return;
          }
          else
          {
@@ -106,13 +111,12 @@ public class Polynomial
          return "Empty polynomial";
 
       // Pointing the head node to the traversing var.
-      Node<Term> trav = this.head;
+      Node<Term> trav = head;
 
       // Add the term at the head to the return
       ret += trav.info;
       trav = trav.next;
 
-      // while(trav != null)
       while(trav != null)
       {
           ret += " + " + trav.info;
@@ -126,11 +130,11 @@ public class Polynomial
    // same exponent with a single term which is their sum
    public void collectTerms()
    {
-      if(head == null) 
+      if(this.head == null) 
          return;
 
       // Point temp node to head to traverse linked list.
-      Node<Term> t = head ;
+      Node<Term> t = this.head ;
 
       while(t.next != null)
       {
@@ -149,7 +153,6 @@ public class Polynomial
          }
          else
             t = t.next ;
-
       }
    }
    
@@ -170,37 +173,53 @@ public class Polynomial
     * @param p the other Polynomial
     * @return the sum of the two Polynomials
     */
-   public Polynomial polyAdd(Polynomial p)
+   public Polynomial polyAdd(Polynomial pa)
    {      
-      if(this.head == null) return null ;
+      if(head == null || pa.head == null)
+         return null;
 
-       // TODO:
-       // Notes: 
-       // .Create a polynomial 
-       // REMEMBER to assume that terms are ordered by exponent: x^2 + 5x^2 + 3x^3 ...
-       // Therefore we can just check until the exponent isn't the same then:
-       //  
-       // .and pivot at the new one
-       Node<Term> tmp = head ;
-       Node<Term> other = p.head ;
+       Polynomial p = new Polynomial(pa);
+
+       // this.collectTerms();
+       // p.collectTerms();
 
        Polynomial ret = new Polynomial();
-       // ret.head = new Node<Term>(new Term(5, 10));
+       // Head of this polynomial.
+       Node<Term> t = head ;
+       // Head of the param polynomial.
 
-       while(tmp != null)
+       Node<Term> t2 = p.head ;
+       // Head of the polynomial to return.
+
+       Node<Term> firstTerm = new Node<Term>(t.info);
+       // added first node to head.
+       ret.head = firstTerm;
+
+       Node<Term> retH = ret.head;
+       t = t.next;
+
+       while(t != null || t2 != null)
        {
-          System.out.println("This polynomial: " + tmp.info.getExponent());
-          tmp = tmp.next ;
-
-          while(other != null)
+          if(t != null)
           {
-             System.out.println("Param polynomial: " + other.info.getExponent());
-             other = other.next ;
+             retH.next = t;
+             retH = retH.next;
+             t = t.next;
+          }
+
+          if(t2 != null)
+          {
+             retH.next = t2;
+             retH = retH.next;
+             t2 = t2.next;
           }
        }
+       
+       // Combine light terms
+       ret.collectTerms();
 
        return ret ;
-   }
+   }// End of polyAdd(P p) method.
    
    // Node class definition - DO NOT MODIFY!
    class Node <E extends Term>
