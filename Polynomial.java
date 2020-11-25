@@ -187,25 +187,33 @@ public class Polynomial
 
        int newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
        int newExp = t2.info.getExponent() + t.info.getExponent();
-       Node<Term> firstTerm = new Node<Term>(new Term(newCoeff, newExp));
 
        // added first node to head.
-       ret.head = firstTerm;
+       ret.head = new Node<Term>(new Term(newCoeff, newExp));
        Node<Term> retH = ret.head;
        t = t.next;
 
        while(t2 != null)
        {
-          while(t != null)
+          Node<Term> tmp = new Polynomial(this).head;
+          // while(t != null)
+          while(tmp != null)
           {
-             newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
-             newExp = t2.info.getExponent() + t.info.getExponent();
+             // DEBUG: 
+             
+             // System.out.println(t2.info + " * " + tmp.info);
 
+             // *****************************
+             newCoeff = t2.info.getCoefficient() * tmp.info.getCoefficient();
+             newExp = t2.info.getExponent() + tmp.info.getExponent();
              retH.next = new Node<Term>(new Term(newCoeff, newExp));
+
              retH = retH.next;
-             t = t.next;
+             // t = t.next;
+             tmp = tmp.next;
           }
-             t2 = t2.next;
+
+          t2 = t2.next;
        }
 
        ret.collectTerms();
