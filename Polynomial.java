@@ -105,22 +105,23 @@ public class Polynomial
     */
    public String toString()
    {
-      String ret = "";
-
       if(head == null)
          return "Empty polynomial";
 
-      // Pointing the head node to the traversing var.
-      Node<Term> trav = head;
+      // String to contain the polynomial's shape.
+      String ret = "";
+
+      // Pointer to the head node to the traversing var.
+      Node<Term> t = head;
 
       // Add the term at the head to the return
-      ret += trav.info;
-      trav = trav.next;
+      ret += t.info;
+      t = t.next;
 
-      while(trav != null)
+      while(t != null)
       {
-          ret += " + " + trav.info;
-          trav = trav.next;
+          ret += " + " + t.info;
+          t = t.next;
       }
 
       return ret ;
@@ -128,7 +129,7 @@ public class Polynomial
    
    // collect terms of a Polynomial object. I.e. replace all terms having the 
    // same exponent with a single term which is their sum
-   public void collectTerms()
+   private void collectTerms()
    {
       if(this.head == null) 
          return;
@@ -140,18 +141,28 @@ public class Polynomial
       {
          if(t.info.getExponent() == t.next.info.getExponent())
          {
+            // Compute the new coefficient 
             int newCoeff = t.info.getCoefficient() + t.next.info.getCoefficient();
 
+            // Create a temporary node with the updated information. This way we don't have to
+            // have setters for the term at the node.
             Node<Term> combined = new Node<Term>(new Term(newCoeff, t.info.getExponent())) ;
 
+            // Update the node's coefficient
             t.info = combined.info;
 
+            // . n1 is current node(t), n2 is n1.next (t.next).
             // .If there is a term after the n2-node we combined: link the combined 
             // node to the next valid node.
-            // .else, delete the node we combined.
+            // .else, delete the node(n2) we combined.
+
+            // eg1. x^2 -> 5x^2 -> 2x^3 :: 6x^2 -> 2x^3
+            // eg2. x^2 -> 5x^2 -> null :: 6x^2 -> null
+            //    |- (Because we calculated the last 2 nodes)
             t.next = (t.next.next != null) ? t.next.next : null ;
          }
          else
+            // Else, pivot at the next node.
             t = t.next ;
       }
    }
@@ -163,9 +174,43 @@ public class Polynomial
     */
    public Polynomial polyMultiply(Polynomial p)
    {
-       // TO DO: write body of this method
-       // temporary return so class skeleton will compile and run
-       return null ;
+      if(this.head == null || p.head == null)
+         return null;
+
+       // Polynomial to return with the sum.
+       Polynomial ret = new Polynomial();
+       // *** Make deep copies of the polynomials ***
+       // Head of this polynomial.
+       Node<Term> t = new Polynomial(this).head ;
+       // Head of the param polynomial.
+       Node<Term> t2 = new Polynomial(p).head;
+
+       int newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
+       int newExp = t2.info.getExponent() + t.info.getExponent();
+       Node<Term> firstTerm = new Node<Term>(new Term(newCoeff, newExp));
+
+       // added first node to head.
+       ret.head = firstTerm;
+       Node<Term> retH = ret.head;
+       t = t.next;
+
+       while(t2 != null)
+       {
+          while(t != null)
+          {
+             newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
+             newExp = t2.info.getExponent() + t.info.getExponent();
+
+             retH.next = new Node<Term>(new Term(newCoeff, newExp));
+             retH = retH.next;
+             t = t.next;
+          }
+             t2 = t2.next;
+       }
+
+       ret.collectTerms();
+
+       return ret;
    }
    
    /**
@@ -173,23 +218,18 @@ public class Polynomial
     * @param p the other Polynomial
     * @return the sum of the two Polynomials
     */
-   public Polynomial polyAdd(Polynomial pa)
+   public Polynomial polyAdd(Polynomial p)
    {      
-      if(head == null || pa.head == null)
+      if(this.head == null || p.head == null)
          return null;
 
-       Polynomial p = new Polynomial(pa);
-
-       // this.collectTerms();
-       // p.collectTerms();
-
+       // Polynomial to return with the sum.
        Polynomial ret = new Polynomial();
+       // *** Make deep copies of the polynomials ***
        // Head of this polynomial.
-       Node<Term> t = head ;
+       Node<Term> t = new Polynomial(this).head ;
        // Head of the param polynomial.
-
-       Node<Term> t2 = p.head ;
-       // Head of the polynomial to return.
+       Node<Term> t2 = new Polynomial(p).head;
 
        Node<Term> firstTerm = new Node<Term>(t.info);
        // added first node to head.
@@ -198,6 +238,8 @@ public class Polynomial
        Node<Term> retH = ret.head;
        t = t.next;
 
+       // Iterate over both polynomials to add and append each node to 
+       // the sum polynomial
        while(t != null || t2 != null)
        {
           if(t != null)

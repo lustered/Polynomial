@@ -7,12 +7,12 @@ public class testing
       Polynomial p2 = new Polynomial();
       Polynomial p0 = new Polynomial();
       
-      // Polynomial nullTest = p1.polyAdd(p2);
-      // System.out.println("\np1 = " + p1 + ", np2 = " + p2 + "\tp1 + p2 = " + 
-      //                     nullTest);
-      // nullTest = p1.polyMultiply(p2);
-      // System.out.println("\np1 = " + p1 + ", np2 = " + p2 + "\tp1 * p2 is " + 
-      //                     nullTest);
+      Polynomial nullTest = p1.polyAdd(p2);
+      System.out.println("\np1 = " + p1 + ", np2 = " + p2 + "\tp1 + p2 = " + 
+                          nullTest);
+      nullTest = p1.polyMultiply(p2);
+      System.out.println("\np1 = " + p1 + ", np2 = " + p2 + "\tp1 * p2 is " + 
+                          nullTest);
       
 
       p1.addTerm(5, 2);
