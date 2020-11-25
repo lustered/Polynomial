@@ -177,44 +177,27 @@ public class Polynomial
       if(this.head == null || p.head == null)
          return null;
 
-       // Polynomial to return with the sum.
-       Polynomial ret = new Polynomial();
-       // *** Make deep copies of the polynomials ***
-       // Head of this polynomial.
-       Node<Term> t = new Polynomial(this).head ;
-       // Head of the param polynomial.
-       Node<Term> t2 = new Polynomial(p).head;
+      Polynomial ret = new Polynomial();
+      // Node<Term> t = new Polynomial(this).head;
+      Node<Term> t2 = new Polynomial(p).head;
 
-       int newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
-       int newExp = t2.info.getExponent() + t.info.getExponent();
+      while(t2 != null)
+      {
+         Node<Term> t = new Polynomial(this).head;
 
-       // added first node to head.
-       ret.head = new Node<Term>(new Term(newCoeff, newExp));
-       Node<Term> retH = ret.head;
-       t = t.next;
+         while(t != null)
+         {
+            // System.out.println(t2.info + " * " + t.info);
+            int newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
+            int newExp = t2.info.getExponent() + t.info.getExponent();
 
-       while(t2 != null)
-       {
-          Node<Term> tmp = new Polynomial(this).head;
-          // while(t != null)
-          while(tmp != null)
-          {
-             // DEBUG: 
-             
-             // System.out.println(t2.info + " * " + tmp.info);
+            ret.addTerm(newCoeff, newExp);
 
-             // *****************************
-             newCoeff = t2.info.getCoefficient() * tmp.info.getCoefficient();
-             newExp = t2.info.getExponent() + tmp.info.getExponent();
-             retH.next = new Node<Term>(new Term(newCoeff, newExp));
+            t = t.next;
+         }
 
-             retH = retH.next;
-             // t = t.next;
-             tmp = tmp.next;
-          }
-
-          t2 = t2.next;
-       }
+            t2 = t2.next;
+      }
 
        ret.collectTerms();
 
