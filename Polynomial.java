@@ -228,42 +228,29 @@ public class Polynomial
     */
    public Polynomial polyAdd(Polynomial p)
    {      
+      // Return null if either polynomial is empty
       if(this.head == null || p.head == null)
          return null;
 
-       // Polynomial to return with the sum.
-       Polynomial ret = new Polynomial();
-       // *** Make deep copies of the polynomials ***
-       // Head of this polynomial.
-       Node<Term> t = new Polynomial(this).head ;
-       // Head of the param polynomial.
-       Node<Term> t2 = new Polynomial(p).head;
+      // Create copy polynomials for this; and param p.
+      Polynomial tmp = new Polynomial(p);
+      Polynomial ret = new Polynomial(this);
 
-       // Add first node to head.
-       ret.head = new Node<Term>(t.info);
+      // Pointers to the polynomial.
+      Node<Term> t = ret.head;
+      Node<Term> t2 = tmp.head;
 
-       Node<Term> retH = ret.head;
-       t = t.next;
+      // Go to the last node of the return polynomial currently 
+      // containing the terms of (this) polynomial.
+      while(t != null)
+         t = t.next;
 
-       // Iterate over both polynomials to add and append each node to 
-       // the sum polynomial
-       while(t != null || t2 != null)
-       {
-          if(t != null)
-          {
-             retH.next = t;
-             retH = retH.next;
-             t = t.next;
-          }
+      while(t2 != null)
+      {
+         ret.addTerm(t2.info.getCoefficient(), t2.info.getExponent());
+         t2 = t2.next;
+      }
 
-          if(t2 != null)
-          {
-             retH.next = t2;
-             retH = retH.next;
-             t2 = t2.next;
-          }
-       }
-       
        // Combine light terms
        ret.collectTerms();
 
