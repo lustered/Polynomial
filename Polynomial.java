@@ -239,9 +239,8 @@ public class Polynomial
        // Head of the param polynomial.
        Node<Term> t2 = new Polynomial(p).head;
 
-       Node<Term> firstTerm = new Node<Term>(t.info);
-       // added first node to head.
-       ret.head = firstTerm;
+       // Add first node to head.
+       ret.head = new Node<Term>(t.info);
 
        Node<Term> retH = ret.head;
        t = t.next;
