@@ -1,33 +1,54 @@
-/**
- * Models a class to represent a term in an algebraic expression:
- * Consists of: integer coefficient and a nonnegative integer exponent
- *
- * eg: term 4x^2 - coeff is 4 and exponent is 2
- *         -6x^8 - coeff is -6 and exponent is 8
- * 
+ /*
+ Carlos Luis
+ U08
+ Term.java
+ I affirm that this program is entirely my own work and none of it
+ is the work of any other person.
  */
 
+ /**
+ * Models a class to represent a term in an algebraic expression:
+ * Consists of: integer coefficient and a nonnegative integer exponent
+ */
 public class Term
 {
+    // Coefficient of a term.
     private final int coefficient ;
+    // Exponent of a term.
     private final int exponent ;
 
+    /**
+     * Create a term.
+     * @param coefficient coefficient of the term.
+     * @param exponent exponent of the term.
+     */
     public Term(int coefficient, int exponent)
     {
         this.coefficient = coefficient ;
         this.exponent = exponent ;
     }
 
+    /**
+     * Get the coefficient of the term.
+     * @return the coefficient.
+     */
     public int getCoefficient() 
     {
         return coefficient ;
     }
 
+    /**
+     * Get the exponent of the term.
+     * @return the exponent.
+     */
     public int getExponent() 
     {
         return exponent ;
     }
 
+    /** Get the String representation of a term eg 2x^3.
+     * @return the term's String representation.
+     */
     @Override
     public String toString()
     {

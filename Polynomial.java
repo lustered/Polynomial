@@ -1,3 +1,11 @@
+/*
+Carlos Luis
+U08
+Polynomial.java
+I affirm that this program is entirely my own work and none of it
+is the work of any other person.
+*/
+
 /**
  * A class to create, add, and multiply polynomials. A polynomial is defined
  * as a sum of terms where each term has variable x, an int coefficient, and
@@ -73,7 +81,7 @@ public class Polynomial
          return;
       }
 
-      // Check for in-between 
+      // Check inside terms
       while(leader.next != null)
       {
          // If the exponent of the next node is >= new term's exponent
@@ -84,17 +92,14 @@ public class Polynomial
             // Inser the node
             leader.next = term;
             // Break out.
-            // break;
             return;
          }
          else
-         {
             // Otherwise, go to the next node.
             leader = leader.next;
-         }
       }
 
-      // Insert the new term at the end of the list.
+      // Insert the new term at the end of the list if needed.
       leader.next = term;
 
    }// End of the addTerm method      
@@ -139,6 +144,7 @@ public class Polynomial
 
       while(t.next != null)
       {
+         // If the current term and next term's exponents are equal.
          if(t.info.getExponent() == t.next.info.getExponent())
          {
             // Compute the new coefficient 

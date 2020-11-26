@@ -1,5 +1,20 @@
+
+/*
+Carlos Luis
+U08
+PolynomialTester.java
+I affirm that this program is entirely my own work and none of it
+is the work of any other person.
+*/
+
+/**
+ * Test class for {@link Polynomial}
+ */
 public class PolynomialTester
 {
+   /**Driver class
+    * @param runtime args
+    */
    public static void main(String[] args)
    {
       Polynomial p1 = new Polynomial();
