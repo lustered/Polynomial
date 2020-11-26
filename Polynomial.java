@@ -32,14 +32,15 @@ public class Polynomial
    {
 
      // Add the head node for this polynomial.
-     this.head = new Node<>(p.head.info) ;
+     this.head = new Node<Term>(p.head.info) ;
      // Pointer to this polynomial.
-     Node t = head ;
+     Node<Term> t = head ;
      // Pointer to param polynomial.
      Node<Term> t2 = p.head ;
 
      t2 = t2.next ;
 
+     // Add nodes to this polynomial from the param polynomial.
      while(t2 != null)
      {
         t.next = new Node(t2.info) ;
@@ -84,12 +85,12 @@ public class Polynomial
       // Check inside terms
       while(leader.next != null)
       {
-         // If the exponent of the next node is >= new term's exponent
+         // If the exponent of the next node is >= new term's exponent.
          if(leader.next.info.getExponent() >= expo)
          {
             // Point the new term to that node.
             term.next = leader.next;
-            // Inser the node
+            // Insert the node.
             leader.next = term;
             // Break out.
             return;
@@ -116,7 +117,7 @@ public class Polynomial
       // String to contain the polynomial's shape.
       String ret = "";
 
-      // Pointer to the head node to the traversing var.
+      // Pointer to the head node.
       Node<Term> t = head;
 
       // Add the term at the head to the return
@@ -142,6 +143,7 @@ public class Polynomial
       // Point temp node to head to traverse linked list.
       Node<Term> t = this.head ;
 
+      // Traverse the list
       while(t.next != null)
       {
          // If the current term and next term's exponents are equal.
@@ -154,13 +156,13 @@ public class Polynomial
             // have setters for the term at the node.
             Node<Term> combined = new Node<Term>(new Term(newCoeff, t.info.getExponent())) ;
 
-            // Update the node's coefficient
+            // Update the node's coefficient.
             t.info = combined.info;
 
             // . n1 is current node(t), n2 is n1.next (t.next).
-            // .If there is a term after the n2-node we combined: link the combined 
+            // 1.If there is a term after the n2-node we combined: link the combined 
             // node to the next valid node.
-            // .else, delete the node(n2) we combined.
+            // 2.else, delete the node(n2) we combined.
 
             // eg1. x^2 -> 5x^2 -> 2x^3 :: 6x^2 -> 2x^3
             // eg2. x^2 -> 5x^2 -> null :: 6x^2 -> null
@@ -180,31 +182,45 @@ public class Polynomial
     */
    public Polynomial polyMultiply(Polynomial p)
    {
+      // Return null if either polynomial is empty.
       if(this.head == null || p.head == null)
          return null;
 
+      // - To multiply polynomials we'll use distributive property instead of
+      // FOIL: for each t2 term | t2.term * t1.term
+
+      // The polynomial we'll return.
       Polynomial ret = new Polynomial();
-      // Node<Term> t = new Polynomial(this).head;
+      // Pointer to the param polynomial's deep copy
       Node<Term> t2 = new Polynomial(p).head;
 
+      // Apply distributive property 
       while(t2 != null)
       {
+         // Temporary node pointing to the terms we'll need to apply
+         // distributive property to.
          Node<Term> t = new Polynomial(this).head;
 
+         // Multiply each term in t2 * each term in t. Append them to ret.
          while(t != null)
          {
             // System.out.println(t2.info + " * " + t.info);
+
+            // Compute the new term's values.
             int newCoeff = t2.info.getCoefficient() * t.info.getCoefficient();
             int newExp = t2.info.getExponent() + t.info.getExponent();
 
+            // Add a new term with the values to the return polynomial.
             ret.addTerm(newCoeff, newExp);
 
             t = t.next;
          }
 
-            t2 = t2.next;
+         // Move to the next t2 node/term.
+         t2 = t2.next;
       }
 
+       // Combine like terms
        ret.collectTerms();
 
        return ret;
@@ -217,7 +233,7 @@ public class Polynomial
     */
    public Polynomial polyAdd(Polynomial p)
    {      
-      // Return null if either polynomial is empty
+      // Return null if either polynomial is empty.
       if(this.head == null || p.head == null)
          return null;
 
@@ -240,7 +256,7 @@ public class Polynomial
          t2 = t2.next;
       }
 
-       // Combine light terms
+       // Combine like terms
        ret.collectTerms();
 
        return ret ;
